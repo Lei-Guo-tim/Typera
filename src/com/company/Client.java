@@ -24,6 +24,7 @@ public class Client {
                 DataOutputStream outputChoice = new DataOutputStream(connection.getOutputStream());
                 DataOutputStream outputName = new DataOutputStream(connection.getOutputStream());
                 DataOutputStream outputPass = new DataOutputStream(connection.getOutputStream());
+                DataOutputStream outputNewPass = new DataOutputStream(connection.getOutputStream());
                 DataInputStream inputStr = new DataInputStream(new BufferedInputStream(connection.getInputStream()));
                 DataInputStream registerMess = new DataInputStream(new BufferedInputStream(connection.getInputStream()));
                 DataInputStream loginMess = new DataInputStream(new BufferedInputStream(connection.getInputStream()));
@@ -34,7 +35,7 @@ public class Client {
                     String username = inputName.next();
                     Scanner inputPass = new Scanner(System.in);
                     System.out.println("Please enter your password: ");
-                    String password = inputPass.next();
+                    String newPassword = inputPass.next();
 
                     // Start communication
                     outputChoice.writeUTF(input); //Writing register, login, exit choice
@@ -42,8 +43,8 @@ public class Client {
                     outputName.writeUTF(username); //Writing username
                     outputName.flush();
                     //Writing password
-                    outputPass.writeUTF(password);
-                    outputPass.flush();
+                    outputNewPass.writeUTF(newPassword);
+                    outputNewPass.flush();
                     //User already exists exist message
                     String regMess = registerMess.readUTF();
                     System.out.println(regMess);
@@ -73,6 +74,7 @@ public class Client {
                 // Close streams and socket
                 outputChoice.close();
                 outputPass.close();
+                outputNewPass.close();
                 outputName.close();
                 inputStr.close();
                 connection.close();
