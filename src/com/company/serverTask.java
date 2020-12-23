@@ -14,13 +14,7 @@ public class serverTask implements Runnable {
 
     @Override
     public void run() {
-        Scanner choice1 = new Scanner(System.in);
-        String input;
-        input = choice1.nextLine();
         while (true) {
-            if (input.equals("start")) {
-                System.out.println("~~Welcome to  the Type Racing Game Server~~");
-
                 do {
                     //Register service in the port 7913 and wait for connections
                     ServerSocket server = null;
@@ -50,14 +44,12 @@ public class serverTask implements Runnable {
                                     System.out.println("User> Created username '" + username + "'");
                                     //Creating .txt file for user and save password into the
                                     String newPassword = inputNewPass.readUTF();   ////Something is wrong here
-
                                     System.out.println("User> Created password '" + newPassword + "'");
 //                            FileWriter writer;
                                     writer = new FileWriter(userNameFile);
                                     writer.write(newPassword);        //Writing password into the username file
                                     writer.write("\r\n");   // write new line
                                     System.out.println("User " + username.toUpperCase() + "'s password is successfully saved!");
-                                    //Closing streams
                                 } else {
                                     registerMess.writeUTF("Server> '" + username.toUpperCase() + "' is already exist. Please choose another username.");
                                     System.out.println("User> '" + username.toUpperCase() + "' is already exist.");
@@ -107,4 +99,3 @@ public class serverTask implements Runnable {
             }
         }
     }
-}
